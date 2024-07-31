@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('task-input');
     const list = document.getElementById('task-list');
 
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
     tasks.forEach(task => addTask(task.text, task.completed, task.id));
 
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addTask(text, completed, id) {
         const li = document.createElement('li');
-        li.dataset.id = id; 
+        li.dataset.id = id;
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
@@ -33,17 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '×';
         deleteButton.classList.add('delete');
+
         deleteButton.addEventListener('click', () => {
             list.removeChild(li);
-            const updatedTasks = tasks.filter(task => task.id !== id);
-            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+            tasks = tasks.filter(task => task.id !== id);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
         });
 
         checkbox.addEventListener('change', () => {
-            li.classList.toggle('completed');
+            li.classList.toggle('completed', checkbox.checked);
             const task = tasks.find(task => task.id === id);
-            task.completed = checkbox.checked;
-            localStorage.setItem('tasks', JSON.stringify(tasks));
+            if (task) {
+                task.completed = checkbox.checked;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
         });
 
         li.appendChild(checkbox);
