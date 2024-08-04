@@ -87,15 +87,11 @@ li.completed span {
     color: #888;
 }
 
-input[type="checkbox"] {
-    margin-right: 12px;
-    cursor: pointer;
-}
-
 span {
     font-size: 16px;
     color: #333;
-    flex: 1; /* Allows the text to take up the remaining space */
+    flex: 1;
+    cursor: pointer;
 }
 
 button.delete {
@@ -106,6 +102,7 @@ button.delete {
     font-size: 20px;
     line-height: 1;
     transition: color 0.3s;
+    margin-left: 12px;
 }
 
 button.delete:hover {
@@ -114,4 +111,19 @@ button.delete:hover {
 
 button.delete:focus {
     outline: none;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+    margin-right: 12px;
+    margin-left: auto;
+}
+
+input.editing {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
